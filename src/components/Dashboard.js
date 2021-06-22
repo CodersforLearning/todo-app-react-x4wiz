@@ -2,10 +2,11 @@ import '../App.css';
 import React, {useEffect, useState} from 'react';
 import Todos from "./Todos";
 import Form from "./Form";
-import {useAuth} from "../contexts/AuthContext";
+import { useAuth } from "../contexts/AuthContext";
+import app from "../firebase";
 
 import {Container, Card, Navbar, NavItem, Button, Alert} from "react-bootstrap";
-import {Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 
 function Dashboard() {
@@ -16,8 +17,41 @@ function Dashboard() {
 	const [status, setStatus] = useState("all")
 	const [error, setError] = useState('')
 	const history = useHistory()
+	const db = app.firestore()
 	
 	const { currentUser, logout } = useAuth()
+	
+	const fetchdata = async () => {
+		const data = await db.collection("todos").where("uid", "==", currentUser.uid).get()
+		const todos = data.docs.map(doc => {
+			return {...doc.data(), id: doc.id}
+		})
+		setTodos(todos)
+	}
+	
+	
+	const addTodo = async (text) => {
+		await db.collection("todos").add({
+			text: text,
+			uid: currentUser.uid,
+			done: false
+		})
+		fetchdata()
+	} 
+	
+	const deleteTodo = async (todoid) => {
+		await db.collection("todos").doc(todoid).delete().then(() => {
+			console.log("deleted!")
+		})
+		fetchdata()
+	}
+	
+	const toggleTodo = async (todoid, done) => {
+		await db.collection("todos").doc(todoid).update({
+			done: !done
+		})
+		fetchdata()
+	}
 	
 	
 	// filter by done / undone / all and save to a separate state
@@ -35,20 +69,6 @@ function Dashboard() {
 		}
 	}
 	
-	// saving to local storage
-	const saveToLStorage = () => {
-		localStorage.setItem('todos', JSON.stringify(todos))
-	}
-	
-	// getting from local storage if it's there
-	const getFromLStorage = () => {
-		if (localStorage.getItem('todos') === null) {
-			localStorage.setItem('todos', JSON.stringify([]))
-		} else {
-			setTodos(JSON.parse(localStorage.getItem('todos')))
-		}
-	}
-	
 	const logoutHandle = async () => {
 		try {
 			await logout()
@@ -60,13 +80,13 @@ function Dashboard() {
 	
 	// run once on page load
 	useEffect(() => {
-		getFromLStorage()
+		fetchdata()
 	}, [])
+	
 	
 	// run when todos or status change
 	useEffect(() => {
 		filterTodos()
-		saveToLStorage()
 	}, [todos, status])
 	return (
 		<div>
@@ -84,14 +104,13 @@ function Dashboard() {
 						{error && <Alert variant="danger">{error}</Alert>} {/* Showing error message*/}
 						<Card>
 							<Card.Body>
-								<Form setInputText={setInputText} setTodos={setTodos} todos={todos} inputText={inputText}
+								<Form setInputText={setInputText} addTodo={addTodo} setTodos={setTodos} todos={todos} inputText={inputText}
 											setStatus={setStatus}/>
-								<Todos todos={todos} filteredTodos={filteredTodos} setTodos={setTodos} status={status}/>
+								<Todos toggleTodo={toggleTodo} deleteTodo={deleteTodo} todos={todos} filteredTodos={filteredTodos} setTodos={setTodos} status={status}/>
 							</Card.Body>
 						</Card>
 					</div>
 				</div>
-			
 			</Container>
 		</div>
 	

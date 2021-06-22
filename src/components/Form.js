@@ -2,30 +2,19 @@ import React from 'react';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faPlus} from '@fortawesome/free-solid-svg-icons'
 
-function Form({ setInputText, setTodos, todos, inputText, setStatus }) {
-	const inputTextHandler = (e) => {
-		e.preventDefault()
-		setInputText(e.target.value)
-	}
+function Form({ setInputText, addTodo, inputText, setStatus }) {
 	
-	// update state with new todo
-	const submitTodo = (e) => {
-		e.preventDefault()
-		setTodos([
-			...todos, {
-				"text": inputText,
-				"done": false,
-				"id": Math.random() * 1000 // random id for now
-			}
-		])
-		setInputText("") // clearing entered text
-	}
-
 	return (
 		<div>
 			<form className="add-todo-form">
-				<input value={inputText} type="text" className="todo-input" onChange={inputTextHandler}/>
-				<button className="todo-button" onClick={submitTodo}>
+				<input value={inputText} type="text" className="todo-input" onChange={(e) => {
+					e.preventDefault()
+					setInputText(e.target.value)
+				}}/>
+				<button className="todo-button" onClick={(e) => {
+					e.preventDefault()
+					addTodo(inputText)
+				}}>
 					<FontAwesomeIcon icon={faPlus}/>
 				</button>
 				<div className="select">
