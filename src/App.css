@@ -1,38 +1,151 @@
-.App {
-  text-align: center;
-}
+@import url('https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap');
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.header {
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  align-items: center;
+  /*margin-top: 2rem;*/
+}
+body {
+  color: black;
+  font-family: 'Indie Flower', cursive;
+  min-height: 100vh;
+}
+header {
+  font-size: 2rem;
+}
+
+header,
+form {
+  min-height: 20vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+form input,
+form button {
+  padding: 0.5rem;
+  font-size: 2rem;
+  border-width: 1px;
+  background: white;
+  box-shadow: 3px 0px 5px 1px;
+
+}
+
+form button {
+  color: #888888;
+  background: #f7fffe;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+form button:hover {
+  background: #adc8fa;
   color: white;
 }
-
-.App-link {
-  color: #61dafb;
+.todo-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.todo-list {
+  min-width: 30%;
+  list-style: none;
+}
+
+.todo {
+  margin: 0.5rem;
+  background: white;
+  font-size: 1.5rem;
+  color: black;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 1s ease;
+}
+.filter-todo {
+  padding: 1rem;
+}
+.todo li {
+  flex: 1;
+}
+
+.trash-btn,
+.complete-btn {
+  background: rgb(203, 203, 203);
+  color: white;
+  border: 1px black;
+  padding: 1rem;
+  cursor: pointer;
+  font-size: 1rem;
+  box-shadow: 3px 0 5px 1px;
+
+}
+
+.complete-btn:hover {
+  background: rgba(98, 191, 43, 0.32);
+}
+.trash-btn:hover {
+  background: rgba(238, 101, 78, 0.32);
+}
+.todo-item {
+  padding: 1rem 0.5rem;
+  border: 1px black;
+}
+
+
+.fall {
+  transform: translateY(10rem) rotateZ(20deg);
+  opacity: 0;
+}
+
+.completed {
+  text-decoration: line-through;
+  opacity: 0.5;
+}
+
+/*CUSTOM SELECTOR */
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  appearance: none;
+  outline: 0;
+  box-shadow: none;
+  border: 0 !important;
+  background-image: none;
+}
+
+/* Custom Select */
+.select {
+  margin: 1rem;
+  position: relative;
+  overflow: hidden;
+}
+select {
+  color: #000000;
+  cursor: pointer;
+  width: 12rem;
+  border-style: inherit;
+  border-width: 1px;
+  background-color: white;
+  box-shadow: 3px 0 5px 1px;
+
+}
+/* Arrow */
+.select::after {
+  border: 1px black;
+  content: "\25BC";
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 1rem;
+  background: #fafafa;
+  cursor: pointer;
+  pointer-events: none;
 }
