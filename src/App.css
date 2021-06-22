@@ -1,9 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap');
 
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+  margin: 0px;
+  padding: 0px;
+  /*box-sizing: border-box;*/
+  color: black;
+  font-family: 'Indie Flower', cursive;
+  font-size: large;
 }
 .header {
   display: flex;
@@ -21,14 +24,14 @@ header {
 }
 
 header,
-form {
+.add-todo-form {
   min-height: 20vh;
   display: flex;
   justify-content: center;
   align-items: center;
 }
-form input,
-form button {
+.add-todo-form input,
+.add-todo-form button {
   padding: 0.5rem;
   font-size: 2rem;
   border-width: 1px;
@@ -37,13 +40,13 @@ form button {
 
 }
 
-form button {
+.add-todo-form button {
   color: #888888;
   background: #f7fffe;
   cursor: pointer;
   transition: all 0.3s ease;
 }
-form button:hover {
+.add-todo-form button:hover {
   background: #adc8fa;
   color: white;
 }
@@ -64,7 +67,7 @@ form button:hover {
   font-size: 1.5rem;
   color: black;
   display: flex;
-  justify-content: space-between;
+  justify-content: left;
   align-items: center;
   transition: all 1s ease;
 }

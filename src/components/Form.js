@@ -23,7 +23,7 @@ function Form({ setInputText, setTodos, todos, inputText, setStatus }) {
 
 	return (
 		<div>
-			<form>
+			<form className="add-todo-form">
 				<input value={inputText} type="text" className="todo-input" onChange={inputTextHandler}/>
 				<button className="todo-button" onClick={submitTodo}>
 					<FontAwesomeIcon icon={faPlus}/>
