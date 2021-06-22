@@ -1,3 +1,21 @@
+# Simple todo app
+
+Can add / toggle / delete todos. Filter by status.
+
+Uses Context API for state management
+
+Uses firebase auth / firestore for persistence
+
+Deployed at: 
+### https://todo-app-2d091.web.app
+
+I will try to add a couple more functions on Friday if time allows :) Sorry, busy week.
+
+P.S. Looks bad!
+
+=========================
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

@@ -14,6 +14,7 @@ function Form({ setInputText, addTodo, inputText, setStatus }) {
 				<button className="todo-button" onClick={(e) => {
 					e.preventDefault()
 					addTodo(inputText)
+					setInputText('')
 				}}>
 					<FontAwesomeIcon icon={faPlus}/>
 				</button>
